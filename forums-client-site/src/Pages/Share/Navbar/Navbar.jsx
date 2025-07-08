@@ -1,60 +1,105 @@
-// src/components/Navbar.jsx
-import { Link, NavLink } from "react-router";
-import { FiBell } from "react-icons/fi";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router";
+import { FaBell, FaBars } from "react-icons/fa";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Navbar = () => {
-  // Simulate logged in or not
-  const isLoggedIn = false;
+  const { user, logout } = useContext(AuthContext);
+  const [count, setCount] = useState(0);
+
+  const handleLogout = () => {
+    logout().catch(console.error);
+  };
+
+  const navItems = (
+    <>
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/membership">Membership</Link></li>
+    </>
+  );
+
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/announcements/count");
+        const data = await res.json();
+        setCount(data.count);
+      } catch (err) {
+        console.error("Error fetching announcement count", err);
+      }
+    };
+
+    fetchCount();
+  }, []);
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4">
-      {/* Left: Logo */}
+    <div className="navbar bg-base-100 shadow-sm px-4">
+      {/* Mobile Menu Start */}
       <div className="navbar-start">
-        <Link to="/" className="text-2xl font-bold">
-          <span className="text-primary">Forum</span>Zone
+        <div className="dropdown">
+          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <FaBars className="text-xl" />
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            {navItems}
+          </ul>
+        </div>
+        <Link to="/" className="text-xl font-bold">
+          <span className="text-primary">🗣️ Forum</span>Zone
         </Link>
       </div>
 
-      {/* Center: Nav Links */}
-      <div className="navbar-center hidden md:flex">
-        <ul className="menu menu-horizontal px-1 gap-3 font-medium">
-          <li><NavLink to="/">Home</NavLink></li>
-          <li><NavLink to="/membership">Membership</NavLink></li>
-        </ul>
+      {/* Desktop Menu */}
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 gap-2">{navItems}</ul>
       </div>
 
-      {/* Right: Notification + Profile/Join Button */}
-      <div className="navbar-end gap-3">
-        {/* Notification icon */}
-        <FiBell className="text-xl cursor-pointer" />
+      {/* Right Side Icons */}
+      <div className="navbar-end space-x-3 relative">
+        <Link to={'/announcements'}>
+        <div className="relative">
+          <FaBell className="text-xl" />
+          {count > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1.5">
+              {count}
+            </span>
+          )}
+        </div>
 
-        {/* Conditional rendering for login state */}
-        {!isLoggedIn ? (
-          <Link to="/login" className="btn btn-sm btn-primary">
+        </Link>
+
+        {!user ? (
+          <Link to="/login" className="btn btn-outline btn-sm">
             Join Us
           </Link>
         ) : (
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <div tabIndex={0} className="avatar online">
+              <div className="w-10 rounded-full cursor-pointer">
                 <img
-                  src="https://i.ibb.co/4pDNDk1/user.png"
-                  alt="User Avatar"
+                  src={
+                    user.photoURL ||
+                    "https://i.ibb.co/ZYW3VTp/default-user.png"
+                  }
                 />
               </div>
             </div>
+
             <ul
               tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-48"
             >
-              <li>
-                <span className="font-semibold text-center">John Doe</span>
+              <li className="font-semibold text-center">
+                {user.displayName || "Anonymous"}
               </li>
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
               <li>
-                <button>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>
