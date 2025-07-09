@@ -1,5 +1,6 @@
 
 // Import the functions you need from the SDKs you need
+import { meta } from "@eslint/js";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -7,12 +8,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDAdnZWhj57FbGXcc8RnoGcvqv4gZ1n8do",
-  authDomain: "forum-project-ee65e.firebaseapp.com",
-  projectId: "forum-project-ee65e",
-  storageBucket: "forum-project-ee65e.firebasestorage.app",
-  messagingSenderId: "775610085185",
-  appId: "1:775610085185:web:89ede10dc6638474d73bc0"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
 // Initialize Firebase

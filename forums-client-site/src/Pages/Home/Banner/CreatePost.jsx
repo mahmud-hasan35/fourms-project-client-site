@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import UseAuth from '../../../Hook/UseAuth';
 
 const CreatePost = () => {
+  const { user } = UseAuth();
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
   const [content, setContent] = useState('');
@@ -14,7 +16,14 @@ const CreatePost = () => {
       title,
       tags: tags.split(',').map(tag => tag.trim()),
       content,
-      createdAt: new Date()
+      author: {
+        name: user?.displayName || 'Anonymous',
+        picture: user?.photoURL || 'https://i.ibb.co/0j1Y3Mh/user.png'
+      },
+      votesCount: 0,
+      votedUsers: [],
+      commentsCount: 0,
+      createdAt: new Date().toISOString()
     };
 
     try {

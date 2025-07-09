@@ -2,22 +2,49 @@ import { useEffect, useState } from "react";
 
 const AnnouncementSection = () => {
   const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
+      setLoading(true);
+      setError("");
       try {
         const res = await fetch("http://localhost:5000/announcements");
+        if (!res.ok) {
+          throw new Error("Failed to fetch announcements");
+        }
         const data = await res.json();
         setAnnouncements(data);
       } catch (err) {
-        console.error("Failed to fetch announcements", err);
+        setError(err.message || "Something went wrong");
+        setAnnouncements([]);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchAnnouncements();
   }, []);
 
-  if (announcements.length === 0) return null; // 👈 Section won't be visible if no announcements
+  if (loading) {
+    return (
+      <section className="max-w-4xl mx-auto my-8 p-6 bg-white shadow-md rounded-lg flex flex-col justify-center items-center h-32">
+        <div className="loading loading-spinner loading-lg text-green-600"></div>
+        <span className="mt-4 text-green-600 font-medium">Loading announcements...</span>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="max-w-4xl mx-auto my-8 p-6 bg-red-50 shadow-md rounded-lg text-center text-red-600">
+        {error}
+      </section>
+    );
+  }
+
+  if (announcements.length === 0) return null;
 
   return (
     <section className="max-w-4xl mx-auto my-8 p-6 bg-white shadow-md rounded-lg">

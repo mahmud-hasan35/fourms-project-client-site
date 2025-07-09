@@ -1,20 +1,29 @@
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../../context/AuthContext";
+import SocialLogin from "../ScialLogin/SocialLogin";
+import UseAuth from "../../../Hook/UseAuth";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const { signInWithGoogle } = useContext(AuthContext);
+  const {signIn} = UseAuth()
+  const {register,handleSubmit} = useForm()
   const navigate = useNavigate();
 
-  const handleGoogleLogin = async () => {
-    try {
-      await signInWithGoogle();
-      navigate("/");
-    } catch (error) {
-      console.error("Google login error:", error.message);
-    }
-  };
+  const onSubmit = data => {
+    signIn(data.email, data.password)
+    
+    .then(result => {
+      console.log(result.user);
+      
+    })
+    .catch(error => {
+      console.log(error);
+      
+    })
+    
+  }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
@@ -25,15 +34,17 @@ const Login = () => {
           <div className="w-full max-w-sm">
             <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <input
                 type="email"
+                {...register('email')}
                 placeholder="Email"
                 className="input input-bordered w-full"
                 required
               />
               <input
                 type="password"
+                {...register('password')}
                 placeholder="Password"
                 className="input input-bordered w-full"
                 required
@@ -43,14 +54,8 @@ const Login = () => {
               </button>
             </form>
 
-            <div className="divider">OR</div>
+            <SocialLogin></SocialLogin>
 
-            <button
-              onClick={handleGoogleLogin}
-              className="btn btn-outline w-full flex items-center gap-2"
-            >
-              <FcGoogle className="text-xl" /> Continue with Google
-            </button>
 
             <p className="text-center mt-4">
               Don’t have an account?{" "}

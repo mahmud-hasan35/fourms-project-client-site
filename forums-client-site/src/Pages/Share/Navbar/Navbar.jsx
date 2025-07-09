@@ -1,14 +1,21 @@
-import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { FaBell, FaBars } from "react-icons/fa";
-import { AuthContext } from "../../../context/AuthContext";
+import UseAuth from "../../../Hook/UseAuth";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const {user, logOut} = UseAuth()
   const [count, setCount] = useState(0);
 
   const handleLogout = () => {
-    logout().catch(console.error);
+    logOut()
+    .then(result => {
+      console.log(result);
+    })
+    .catch(error => {
+      console.log(error);
+      
+    })
   };
 
   const navItems = (
@@ -58,7 +65,7 @@ const Navbar = () => {
       </div>
 
       {/* Right Side Icons */}
-      <div className="navbar-end space-x-3 relative">
+      <div className="navbar-end space-x-6 relative">
         <Link to={'/announcements'}>
         <div className="relative">
           <FaBell className="text-xl" />

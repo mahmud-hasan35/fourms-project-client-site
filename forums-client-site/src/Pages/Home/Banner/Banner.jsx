@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router';  // react-router-dom এ পরিবর্তন
+import { Link } from 'react-router'; 
 import TagSection from './TagSection';
 
 const Banner = () => {
@@ -9,7 +9,7 @@ const Banner = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // সার্চ হ্যান্ডলার
+  
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
       setResults([]);
@@ -29,7 +29,7 @@ const Banner = () => {
     }
   };
 
-  // ট্যাগ থেকে সার্চ হ্যান্ডলার
+  
   const handleSearchFromTag = async (tag) => {
     if (!tag.trim()) {
       setResults([]);
@@ -49,8 +49,7 @@ const Banner = () => {
       setLoading(false);
     }
   };
-
-  // ইনপুটে এন্টার প্রেস ইভেন্ট
+  
   const onInputKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSearch();
@@ -82,7 +81,7 @@ const Banner = () => {
             </Link>
           </div>
 
-          {/* সার্চ বার */}
+         {/* searchbar */}
           <div className="mt-8 flex max-w-md mx-auto md:mx-0">
             <input
               type="text"
@@ -94,7 +93,7 @@ const Banner = () => {
             />
             <button
               onClick={handleSearch}
-              disabled={loading}  // লোডিং সময় ডিজেবল
+              disabled={loading} 
               className={`bg-blue-600 text-white px-6 py-2 rounded-r-full font-medium hover:bg-blue-700 transition ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
