@@ -26,9 +26,14 @@ const TagSection = ({ onTagClick }) => {
   return (
     <div className="bg-gray-50 py-6 px-4 rounded-lg shadow mt-10">
       <h2 className="text-xl font-semibold mb-4 text-gray-800">Explore Tags</h2>
+
       {loading && <p className="text-gray-600">Loading tags...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      <div className="flex flex-wrap gap-3">
+      {!loading && tags.length === 0 && !error && (
+        <p className="text-gray-500">No tags found.</p>
+      )}
+
+      <div className="flex flex-wrap gap-3 mt-2">
         {tags.map((tag) => (
           <button
             key={tag}

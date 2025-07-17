@@ -5,8 +5,8 @@ import PostList from '../HomePagePost/PostList'
 export default function Home() {
   return (
     <>
-    <Banner></Banner>
-    <PostList></PostList>
+    {/* <Banner></Banner>
+    <PostList></PostList> */}
     </>
   )
 }

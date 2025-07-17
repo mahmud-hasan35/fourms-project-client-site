@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router'; 
 import TagSection from './TagSection';
+import useAxiosSecure from '../../../Hook/useAxiosSecure';
 
 const Banner = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const axiosSecure = useAxiosSecure
 
   
   const handleSearch = async () => {
