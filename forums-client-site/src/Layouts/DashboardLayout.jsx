@@ -20,8 +20,11 @@ function DashboardLayout() {
 
    if (roleLoading) {
       return (
-         <div className="text-center py-10 text-xl font-semibold text-gray-600">
-            Loading Sidebar...
+         <div className="flex flex-col items-center justify-center mt-16">
+            <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+            <p className="mt-4 text-gray-600 text-lg font-medium">
+               Loading comments...
+            </p>
          </div>
       );
    }
