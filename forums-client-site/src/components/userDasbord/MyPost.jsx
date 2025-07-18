@@ -1,6 +1,3 @@
-
-
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
@@ -26,10 +23,7 @@ function MyPost() {
          const res = await axiosSecure.get(`/user/posts?email=${user?.email}&page=${page}&limit=${limit}`);
 
          console.log(res.data);
-         
          return res.data;
-         
-         
       },
       enabled: !!user?.email,
    });
@@ -45,20 +39,20 @@ function MyPost() {
 
    const handleDelete = (id) => {
       Swal.fire({
-         title: 'আপনি কি নিশ্চিত?',
-         text: "আপনি এই পোস্টটি ডিলিট করতে চাচ্ছেন!",
+         title: 'Are you sure?',
+         text: "You want to delete this post!",
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#d33',
          cancelButtonColor: '#3085d6',
-         confirmButtonText: 'হ্যাঁ, ডিলিট করুন!',
-         cancelButtonText: 'বাতিল করুন'
+         confirmButtonText: 'Yes, delete it!',
+         cancelButtonText: 'Cancel'
       }).then((result) => {
          if (result.isConfirmed) {
             deleteMutation.mutate(id);
             Swal.fire(
-               'ডিলিট হয়েছে!',
-               'আপনার পোস্টটি ডিলিট করা হয়েছে।',
+               'Deleted!',
+               'Your post has been deleted.',
                'success'
             );
          }
@@ -73,7 +67,7 @@ function MyPost() {
          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded shadow">
             <div className="flex items-center">
                <FiAlertCircle className="text-red-500 text-2xl mr-2" />
-               <p className="text-red-700 font-medium">সমস্যা হয়েছে ডেটা আনতে</p>
+               <p className="text-red-700 font-medium">Failed to fetch data</p>
             </div>
          </div>
       </div>
@@ -83,8 +77,8 @@ function MyPost() {
       <div className="max-w-6xl mx-auto p-4 sm:p-6">
          <div className="bg-white rounded-xl shadow-md overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4">
-               <h2 className="text-2xl font-bold text-white text-center">আমার পোস্টসমূহ</h2>
+            <div className="bg-gradient-to-b from-green-500 via-teal-600 to-teal-800 px-6 py-4">
+               <h2 className="text-2xl font-bold text-white text-center">My Posts</h2>
             </div>
 
             {/* Content */}
@@ -94,13 +88,13 @@ function MyPost() {
                      <div className="flex justify-center text-5xl text-gray-400 mb-4">
                         <FaRegSadTear />
                      </div>
-                     <h3 className="text-xl font-medium text-gray-700 mb-2">কোন পোস্ট পাওয়া যায়নি</h3>
-                     <p className="text-gray-500 mb-6">আপনি এখনো কোনো পোস্ট তৈরি করেননি</p>
+                     <h3 className="text-xl font-medium text-gray-700 mb-2">No posts found</h3>
+                     <p className="text-gray-500 mb-6">You haven't created any posts yet</p>
                      <button
                         onClick={() => navigate('/dashboard/add-post')}
                         className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-colors shadow-md"
                      >
-                        নতুন পোস্ট তৈরি করুন
+                        Create a new post
                      </button>
                   </div>
                ) : (
@@ -110,16 +104,16 @@ function MyPost() {
                            <thead className="bg-gray-50">
                               <tr>
                                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    শিরোনাম
+                                    Title
                                  </th>
                                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    ভোট
+                                    Votes
                                  </th>
                                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    কমেন্ট
+                                    Comments
                                  </th>
                                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    একশন
+                                    Action
                                  </th>
                               </tr>
                            </thead>
@@ -139,7 +133,7 @@ function MyPost() {
                                           onClick={() => navigate(`/dashboard/comments/${post._id}`)}
                                           className="text-indigo-600 hover:text-indigo-900 flex items-center justify-center mx-auto"
                                        >
-                                          <FiMessageSquare className="mr-1" /> দেখুন
+                                          <FiMessageSquare className="mr-1" /> View
                                        </button>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -147,7 +141,7 @@ function MyPost() {
                                           onClick={() => handleDelete(post._id)}
                                           className="text-red-600 hover:text-red-900 flex items-center justify-center mx-auto"
                                        >
-                                          <FiTrash2 className="mr-1" /> ডিলিট
+                                          <FiTrash2 className="mr-1" /> Delete
                                        </button>
                                     </td>
                                  </tr>
@@ -165,20 +159,20 @@ function MyPost() {
                                  disabled={page === 1}
                                  className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
                               >
-                                 পূর্ববর্তী
+                                 Previous
                               </button>
                               <button
                                  onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
                                  disabled={page === totalPages}
                                  className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
                               >
-                                 পরবর্তী
+                                 Next
                               </button>
                            </div>
                            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                               <div>
                                  <p className="text-sm text-gray-700">
-                                    পৃষ্ঠা <span className="font-medium">{page}</span> এর <span className="font-medium">{totalPages}</span> - মোট পোস্ট <span className="font-medium">{data?.totalPosts}</span>
+                                    Page <span className="font-medium">{page}</span> of <span className="font-medium">{totalPages}</span> — Total posts <span className="font-medium">{data?.totalPosts}</span>
                                  </p>
                               </div>
                               <div>

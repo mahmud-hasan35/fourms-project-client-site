@@ -19,7 +19,7 @@ function AdminProfile() {
    const { user } = UseAuth();
    const axiosSecure = useAxiosSecure();
 
-   const { data: stats = {}, } = useQuery({
+   const { data: stats = {} } = useQuery({
       queryKey: ["admin-stats"],
       queryFn: async () => {
          const res = await axiosSecure.get("/admin-stats");
@@ -28,20 +28,17 @@ function AdminProfile() {
    });
 
    const chartData = [
-      { name: "পোস্ট", value: stats.posts || 0 },
-      { name: "কমেন্ট", value: stats.comments || 0 },
-      { name: "ইউজার", value: stats.users || 0 },
+      { name: "Posts", value: stats.posts || 0 },
+      { name: "Comments", value: stats.comments || 0 },
+      { name: "Users", value: stats.users || 0 },
    ];
-
-   
-
 
    return (
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
          {/* Profile Header */}
          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-            <p className="text-gray-600">সিস্টেমের সামগ্রিক পরিসংখ্যান এবং ব্যবস্থাপনা</p>
+            <h1 className="text-3xl font-bold text-gray-800">Admin Profile</h1>
+            <p className="text-gray-600">Overall system statistics and management</p>
          </div>
 
          {/* Profile Card */}
@@ -60,11 +57,9 @@ function AdminProfile() {
                <h2 className="text-2xl font-bold text-gray-800">{user?.displayName}</h2>
                <p className="text-gray-600 mb-2">{user?.email}</p>
                <div className="flex justify-center md:justify-start gap-2">
-                  <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                    
-                  </span>
+
                   <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                     সক্রিয়
+                     Active
                   </span>
                </div>
             </div>
@@ -75,7 +70,7 @@ function AdminProfile() {
             <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                <div className="flex items-center justify-between">
                   <div>
-                     <h3 className="text-lg font-medium text-gray-500">মোট পোস্ট</h3>
+                     <h3 className="text-lg font-medium text-gray-500">Total Posts</h3>
                      <p className="text-3xl font-bold text-gray-800 mt-2">{stats.posts}</p>
                   </div>
                   <div className="bg-blue-100 p-3 rounded-full">
@@ -89,7 +84,7 @@ function AdminProfile() {
             <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                <div className="flex items-center justify-between">
                   <div>
-                     <h3 className="text-lg font-medium text-gray-500">মোট কমেন্ট</h3>
+                     <h3 className="text-lg font-medium text-gray-500">Total Comments</h3>
                      <p className="text-3xl font-bold text-gray-800 mt-2">{stats.comments}</p>
                   </div>
                   <div className="bg-green-100 p-3 rounded-full">
@@ -103,7 +98,7 @@ function AdminProfile() {
             <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                <div className="flex items-center justify-between">
                   <div>
-                     <h3 className="text-lg font-medium text-gray-500">মোট ইউজার</h3>
+                     <h3 className="text-lg font-medium text-gray-500">Total Users</h3>
                      <p className="text-3xl font-bold text-gray-800 mt-2">{stats.users}</p>
                   </div>
                   <div className="bg-yellow-100 p-3 rounded-full">
@@ -120,7 +115,7 @@ function AdminProfile() {
             {/* Pie Chart Card */}
             <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-gray-800">ডেটা ভিজ্যুয়ালাইজেশন</h3>
+                  <h3 className="text-xl font-bold text-gray-800">Data Visualization</h3>
                   <div className="flex space-x-2">
                      <button className="px-3 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
                         Post
@@ -148,7 +143,7 @@ function AdminProfile() {
                            ))}
                         </Pie>
                         <Tooltip
-                           formatter={(value) => [`${value} টি`, value === 1 ? 'আইটেম' : 'আইটেম']}
+                           formatter={(value) => [`${value} items`, ""]}
                         />
                         <Legend
                            layout="horizontal"
@@ -164,9 +159,9 @@ function AdminProfile() {
             {/* Tags Component Card */}
             <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-gray-800">ট্যাগ ম্যানেজমেন্ট</h3>
+                  <h3 className="text-xl font-bold text-gray-800">Tag Management</h3>
                   <span className="px-3 py-1 text-xs bg-purple-100 text-purple-800 rounded-full">
-                     নতুন ট্যাগ
+                     New Tag
                   </span>
                </div>
                <TagsComponent />

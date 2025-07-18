@@ -30,6 +30,7 @@ function PostList() {
 
    return (
       <div className="max-w-5xl mx-auto my-6 p-4">
+         <h2 className="text-center font-bold space-y-3 text-4xl">All Post </h2>
          <div className="flex justify-between items-center flex-wrap gap-3 mb-4">
             <button
                onClick={() => setSortByPopularity(!sortByPopularity)}

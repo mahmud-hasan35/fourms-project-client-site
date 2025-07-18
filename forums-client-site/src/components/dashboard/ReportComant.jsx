@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 
@@ -11,11 +10,9 @@ const ReportComant = () => {
    const [modalOpen, setModalOpen] = useState(false);
    const [modalContent, setModalContent] = useState("");
 
-   // Pagination state
    const [page, setPage] = useState(1);
    const limit = 10;
 
-   // Fetch reported comments with pagination
    const {
       data,
       isLoading,
@@ -44,10 +41,10 @@ const ReportComant = () => {
       },
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: ["reported-comments"] });
-         Swal.fire("Success", "Action executed successfully", "success");
+         Swal.fire("Success", "Action completed successfully", "success");
       },
       onError: () => {
-         Swal.fire("Error", "Failed to perform action", "error");
+         Swal.fire("Error", "Failed to perform the action", "error");
       },
    });
 
@@ -71,63 +68,63 @@ const ReportComant = () => {
 
    if (isLoading)
       return (
-         <p className="text-center text-gray-500 mt-10 text-lg font-medium">
-            লোড হচ্ছে...
-         </p>
+         <div className="flex flex-col items-center justify-center mt-16">
+            <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+            <p className="mt-4 text-gray-600 text-lg font-medium">
+               Loading comments...
+            </p>
+         </div>
       );
 
    if (isError)
       return (
          <p className="text-center text-red-500 mt-10 text-lg font-medium">
-            কিছু সমস্যা হয়েছে ডাটা লোড করতে। পরে আবার চেষ্টা করুন।
+            Something went wrong. Please try again later.
          </p>
       );
 
    return (
       <div className="p-4 max-w-7xl mx-auto">
          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-            📋 রিপোর্টেড কমেন্টসমূহ
+            📋 Reported Comments
          </h2>
 
          {reports?.length === 0 ? (
             <p className="text-center text-gray-500 text-lg mt-10">
-               কোন রিপোর্ট পাওয়া যায়নি।
+               No reports found.
             </p>
          ) : (
             <div className="overflow-x-auto shadow-lg rounded-lg border border-gray-300">
                <table className="min-w-full table-auto border-collapse">
                   <thead className="bg-gray-100 sticky top-0">
                      <tr>
-                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold text-sm md:text-base">
-                           ইউজার
+                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold">
+                           User
                         </th>
-                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold text-sm md:text-base">
-                           ইমেইল
+                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold">
+                           Email
                         </th>
-                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold text-sm md:text-base">
-                           কমেন্ট
+                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold">
+                           Comment
                         </th>
-                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold text-sm md:text-base">
-                           ফিডব্যাক
+                        <th className="border-b px-4 py-3 text-left text-gray-700 font-semibold">
+                           Feedback
                         </th>
-                        <th className="border-b px-4 py-3 text-center text-gray-700 font-semibold text-sm md:text-base">
-                           অ্যাকশন
+                        <th className="border-b px-4 py-3 text-center text-gray-700 font-semibold">
+                           Actions
                         </th>
                      </tr>
                   </thead>
                   <tbody>
                      {reports?.map((r) => (
-                        <tr
-                           key={r._id}
-                           className="hover:bg-gray-50 even:bg-white odd:bg-gray-50"
-                        >
-                           <td className="border-b px-4 py-3 text-gray-800 text-sm md:text-base max-w-[120px] truncate">
+                        <tr key={r._id} className="hover:bg-gray-50 even:bg-white odd:bg-gray-50">
+                           <td className="border-b px-4 py-3 text-gray-800 max-w-[120px] truncate">
                               {r.userName}
                            </td>
-                           <td className="border-b px-4 py-3 text-gray-700 text-sm md:text-base max-w-[160px] truncate">
+                           <td className="border-b px-4 py-3 text-gray-700 max-w-[160px] truncate">
                               {r.userEmail}
                            </td>
-                           <td className="border-b px-4 py-3 text-gray-800 text-sm md:text-base max-w-[280px]">
+                           <td className="border-b px-4 py-3 text-gray-800 max-w-[280px]">
                               {r.commentText.length > 40 ? (
                                  <>
                                     <span className="truncate inline-block max-w-[240px] align-middle">
@@ -138,34 +135,34 @@ const ReportComant = () => {
                                        onClick={() => openModal(r.commentText)}
                                        className="ml-2 text-blue-600 hover:text-blue-800 underline text-sm"
                                     >
-                                       Read More
+                                       View More
                                     </button>
                                  </>
                               ) : (
                                  r.commentText
                               )}
                            </td>
-                           <td className="border-b px-4 py-3 text-gray-700 text-sm md:text-base max-w-[160px] truncate">
+                           <td className="border-b px-4 py-3 text-gray-700 max-w-[160px] truncate">
                               {r.feedback}
                            </td>
                            <td className="border-b px-4 py-3 text-center space-x-2 whitespace-nowrap">
                               <button
                                  onClick={() => handleAction(r._id, "ban", r.commentId)}
-                                 className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-xs md:text-sm"
+                                 className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-xs"
                                  disabled={mutation.isLoading}
                               >
                                  Ban
                               </button>
                               <button
                                  onClick={() => handleAction(r._id, "delete", r.commentId)}
-                                 className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-xs md:text-sm"
+                                 className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-xs"
                                  disabled={mutation.isLoading}
                               >
                                  Delete
                               </button>
                               <button
                                  onClick={() => handleAction(r._id, "ignore", r.commentId)}
-                                 className="bg-gray-400 hover:bg-gray-500 text-white px-3 py-1 rounded-md text-xs md:text-sm"
+                                 className="bg-gray-400 hover:bg-gray-500 text-white px-3 py-1 rounded-md text-xs"
                                  disabled={mutation.isLoading}
                               >
                                  Ignore
@@ -186,7 +183,7 @@ const ReportComant = () => {
                   disabled={page === 1}
                   className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
                >
-                  Prev
+                  Previous
                </button>
                {[...Array(totalPages)].map((_, idx) => {
                   const pageNum = idx + 1;
@@ -195,8 +192,8 @@ const ReportComant = () => {
                         key={pageNum}
                         onClick={() => setPage(pageNum)}
                         className={`px-3 py-1 rounded ${pageNum === page
-                              ? "bg-blue-600 text-white"
-                              : "bg-gray-200"
+                           ? "bg-blue-600 text-white"
+                           : "bg-gray-200"
                            }`}
                      >
                         {pageNum}
@@ -224,21 +221,21 @@ const ReportComant = () => {
                   onClick={(e) => e.stopPropagation()}
                >
                   <h3 className="text-2xl font-semibold mb-4 text-gray-800">
-                     পুরো কমেন্ট
+                     Full Comment
                   </h3>
                   <p className="mb-6 whitespace-pre-wrap text-gray-700 text-base">
                      {modalContent}
                   </p>
                   <button
                      onClick={closeModal}
-                     className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-300 font-bold text-xl"
+                     className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold text-xl"
                      aria-label="Close modal"
                   >
-                     &times;
+                     ×
                   </button>
                   <button
                      onClick={closeModal}
-                     className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-base"
+                     className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md"
                   >
                      Close
                   </button>

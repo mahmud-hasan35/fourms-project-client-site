@@ -15,24 +15,24 @@ function TagsComponent() {
          const res = await axiosSecure.post("/tags", { name: trimmedTag });
 
          if (res.data?.tag) {
-            toast.success("নতুন ট্যাগ সফলভাবে যোগ করা হয়েছে!");
+            toast.success("New tag added successfully!");
             setNewTag("");
          } else {
-            toast.info("এই ট্যাগটি ইতিমধ্যে বিদ্যমান আছে।");
+            toast.info("This tag already exists.");
          }
       } catch (error) {
-         toast.error(error.response?.data?.message || "কিছু সমস্যা হয়েছে");
+         toast.error(error.response?.data?.message || "Something went wrong.");
       }
    };
 
    return (
       <div className="w-full max-w-md mx-auto my-10 p-6 bg-white rounded-xl shadow-lg border border-gray-200">
-         <h3 className="text-xl font-semibold mb-4 text-center text-gray-800">ট্যাগ যোগ করুন</h3>
+         <h3 className="text-xl font-semibold mb-4 text-center text-gray-800">Add a Tag</h3>
 
          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input
                type="text"
-               placeholder="নতুন ট্যাগ লিখুন"
+               placeholder="Enter a new tag"
                value={newTag}
                onChange={(e) => setNewTag(e.target.value)}
                required
@@ -42,11 +42,10 @@ function TagsComponent() {
                type="submit"
                className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
             >
-               যোগ করুন
+               Add
             </button>
          </form>
       </div>
-
    );
 }
 

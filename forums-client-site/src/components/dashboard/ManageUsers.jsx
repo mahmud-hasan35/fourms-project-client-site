@@ -1,8 +1,5 @@
-
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-
 import useAxiosSecure from '../../Hook/useAxiosSecure';
 import Swal from 'sweetalert2';
 
@@ -11,7 +8,7 @@ function ManageUsers() {
    const queryClient = useQueryClient();
    const axiosSecure = useAxiosSecure();
 
-   const { data, isLoading, isError } = useQuery({
+   const { data, isLoading, isError, isFetching } = useQuery({
       queryKey: ['users', searchTerm],
       queryFn: async () => {
          const res = await axiosSecure.get(`/users?search=${searchTerm}`);
@@ -22,14 +19,13 @@ function ManageUsers() {
 
    const users = data || [];
 
-   // Make Admin Mutation
    const makeAdminMutation = useMutation({
       mutationFn: (userId) => axiosSecure.patch(`/users/${userId}/make-admin`),
       onSuccess: () => {
          Swal.fire({
             icon: 'success',
-            title: 'সফল!',
-            text: 'সফলভাবে অ্যাডমিন বানানো হয়েছে',
+            title: 'Success!',
+            text: 'User has been promoted to admin successfully.',
             timer: 1500,
             showConfirmButton: false,
          });
@@ -38,20 +34,19 @@ function ManageUsers() {
       onError: () => {
          Swal.fire({
             icon: 'error',
-            title: 'ব্যর্থ!',
-            text: 'অ্যাডমিন বানাতে সমস্যা হয়েছে',
+            title: 'Failed!',
+            text: 'Failed to promote the user to admin.',
          });
       },
    });
 
-   // Remove Admin Mutation
    const removeAdminMutation = useMutation({
       mutationFn: (userId) => axiosSecure.patch(`/users/${userId}/remove-admin`),
       onSuccess: () => {
          Swal.fire({
             icon: 'success',
-            title: 'সফল!',
-            text: 'অ্যাডমিন রিমুভ করা হয়েছে',
+            title: 'Success!',
+            text: 'Admin role has been removed successfully.',
             timer: 1500,
             showConfirmButton: false,
          });
@@ -60,24 +55,26 @@ function ManageUsers() {
       onError: () => {
          Swal.fire({
             icon: 'error',
-            title: 'ব্যর্থ!',
-            text: 'অ্যাডমিন রিমুভ করতে সমস্যা হয়েছে',
+            title: 'Failed!',
+            text: 'Failed to remove admin role from the user.',
          });
       },
    });
 
-   const handleSearchChange = (e) => setSearchTerm(e.target.value);
+   const handleSearchChange = (e) => {
+      setSearchTerm(e.target.value);
+   };
 
    const handleMakeAdmin = (userId) => {
       Swal.fire({
-         title: 'আপনি কি নিশ্চিত?',
-         text: 'এই ইউজারকে অ্যাডমিন বানাতে চান?',
+         title: 'Are you sure?',
+         text: 'Do you want to promote this user to admin?',
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#3085d6',
          cancelButtonColor: '#d33',
-         confirmButtonText: 'হ্যাঁ, বানান',
-         cancelButtonText: 'না',
+         confirmButtonText: 'Yes, Promote',
+         cancelButtonText: 'Cancel',
       }).then((result) => {
          if (result.isConfirmed) {
             makeAdminMutation.mutate(userId);
@@ -87,14 +84,14 @@ function ManageUsers() {
 
    const handleRemoveAdmin = (userId) => {
       Swal.fire({
-         title: 'আপনি কি নিশ্চিত?',
-         text: 'এই ইউজার থেকে অ্যাডমিন স্ট্যাটাস সরাতে চান?',
+         title: 'Are you sure?',
+         text: 'Do you want to remove admin role from this user?',
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#d33',
          cancelButtonColor: '#3085d6',
-         confirmButtonText: 'হ্যাঁ, সরান',
-         cancelButtonText: 'না',
+         confirmButtonText: 'Yes, Remove',
+         cancelButtonText: 'Cancel',
       }).then((result) => {
          if (result.isConfirmed) {
             removeAdminMutation.mutate(userId);
@@ -102,8 +99,20 @@ function ManageUsers() {
       });
    };
 
-   if (isLoading) return <p className="text-center mt-4">লোড হচ্ছে...</p>;
-   if (isError) return <p className="text-center mt-4 text-red-600">ইউজার লিস্ট আনা যায়নি</p>;
+   if (isLoading) {
+      return (
+         <div className="flex flex-col items-center justify-center mt-16">
+            <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+            <p className="mt-4 text-gray-600 text-lg font-medium">
+               Loading users...
+            </p>
+         </div>
+      );
+   }
+
+   if (isError) {
+      return <p className="text-center mt-4 text-red-600">Failed to load user list.</p>;
+   }
 
    return (
       <div className="max-w-7xl mx-auto px-4 py-6">
@@ -111,11 +120,19 @@ function ManageUsers() {
 
          <input
             type="text"
-            placeholder="ইউজার নাম দিয়ে সার্চ করুন"
+            placeholder="Search by user name"
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
          />
+
+         {/* Show loading spinner while typing/searching */}
+         {isFetching && (
+            <div className="flex items-center gap-2 text-blue-600 mb-4">
+               <div className="w-5 h-5 border-2 border-blue-500 border-dashed rounded-full animate-spin"></div>
+               <span className="text-sm">Searching users...</span>
+            </div>
+         )}
 
          <div className="overflow-x-auto">
             <table className="w-full text-sm text-left border rounded-lg overflow-hidden">
@@ -131,7 +148,7 @@ function ManageUsers() {
                   {users.length === 0 ? (
                      <tr>
                         <td colSpan="4" className="text-center py-6">
-                           কোনো ইউজার পাওয়া যায়নি
+                           No users found.
                         </td>
                      </tr>
                   ) : (
@@ -144,17 +161,25 @@ function ManageUsers() {
                                  <button
                                     onClick={() => handleRemoveAdmin(user._id)}
                                     disabled={removeAdminMutation.isLoading}
-                                    className={`px-4 py-1 text-white rounded transition-all duration-150 ${removeAdminMutation.isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'}`}
+                                    className={`px-4 py-1 text-white rounded transition-all duration-150 ${
+                                       removeAdminMutation.isLoading
+                                          ? 'bg-gray-400 cursor-not-allowed'
+                                          : 'bg-red-600 hover:bg-red-700'
+                                    }`}
                                  >
-                                    {removeAdminMutation.isLoading ? 'অপেক্ষা করুন...' : 'Remove Admin'}
+                                    {removeAdminMutation.isLoading ? 'Please wait...' : 'Remove Admin'}
                                  </button>
                               ) : (
                                  <button
                                     onClick={() => handleMakeAdmin(user._id)}
                                     disabled={makeAdminMutation.isLoading}
-                                    className={`px-4 py-1 text-white rounded transition-all duration-150 ${makeAdminMutation.isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                                    className={`px-4 py-1 text-white rounded transition-all duration-150 ${
+                                       makeAdminMutation.isLoading
+                                          ? 'bg-gray-400 cursor-not-allowed'
+                                          : 'bg-blue-600 hover:bg-blue-700'
+                                    }`}
                                  >
-                                    {makeAdminMutation.isLoading ? 'অপেক্ষা করুন...' : 'Make Admin'}
+                                    {makeAdminMutation.isLoading ? 'Please wait...' : 'Make Admin'}
                                  </button>
                               )}
                            </td>

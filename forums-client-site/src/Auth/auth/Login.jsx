@@ -1,13 +1,14 @@
-
-import { Link, useNavigate } from 'react-router';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import UseAuth from '../../Hook/useAuth';
-import useAxiosSecure from '../../Hook/useAxiosSecure';
-
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";  
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import UseAuth from "../../Hook/UseAuth";
 
 function Login() {
-   const { googleLogin, signIn } = UseAuth();
+   const { googleLogin, signIn, resetPassword } = UseAuth();
+   const [email, setEmail] = useState("");
+
    const navigate = useNavigate();
    const axiosInstance = useAxiosSecure();
 
@@ -15,28 +16,30 @@ function Login() {
       register,
       handleSubmit,
       formState: { errors },
+      watch,
    } = useForm();
+
+   // Watch email input to update email state
+   const watchedEmail = watch("email");
+   React.useEffect(() => {
+      setEmail(watchedEmail || "");
+   }, [watchedEmail]);
 
    // Email/Password Login
    const onSubmit = async (data) => {
       try {
          const result = await signIn(data.email, data.password);
          toast.success(`Welcome back, ${result.user.displayName || "User"}!`);
-         navigate('/');
+         navigate("/");
       } catch (error) {
          toast.error("Login failed! Please check your credentials.");
          console.error(error);
       }
    };
 
-
-
-
-
-
    const handleGoogleLogin = async () => {
       try {
-         const result = await googleLogin(); // Firebase Google Login
+         const result = await googleLogin();
          const user = result.user;
 
          const userInfo = {
@@ -44,22 +47,36 @@ function Login() {
             role: "user",
             badges: "bronze",
             created_at: new Date().toISOString(),
-            last_log_in: new Date().toISOString()
+            last_log_in: new Date().toISOString(),
          };
          await axiosInstance.post("/users", userInfo);
          toast.success("Google login successful!");
          navigate("/");
-
       } catch (error) {
          console.error("Google login failed:", error.message);
          toast.error("Google login failed");
       }
    };
 
+   // Forgot password handler
+   const handleReset = async (e) => {
+      e.preventDefault();
+      if (!email) return toast.error("Please enter your email");
+
+      try {
+         await resetPassword(email);
+         toast.success("Password reset email sent!");
+         // optionally clear email input: setEmail("");
+      } catch (error) {
+         console.error(error);
+         toast.error(error.message);
+      }
+   };
+
    return (
       <div className="container mx-auto px-4 py-12 flex items-center justify-center  relative">
          <div className="w-full max-w-md rounded-2xl p-8 shadow-lg">
-            <div className='flex items-center justify-center py-5 '>
+            <div className="flex items-center justify-center py-5 ">
                <img className="" src="/download.png" alt="dummyLogoColored" />
             </div>
 
@@ -69,19 +86,25 @@ function Login() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                {/* Email */}
                <div>
-                  <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
+                  <label className="block mb-1 text-sm font-medium text-gray-700">
+                     Email
+                  </label>
                   <input
                      type="email"
                      {...register("email", { required: "Email is required" })}
                      placeholder="Enter your email"
                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
                   />
-                  {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                  {errors.email && (
+                     <p className="text-red-500 text-sm">{errors.email.message}</p>
+                  )}
                </div>
 
                {/* Password */}
                <div>
-                  <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
+                  <label className="block mb-1 text-sm font-medium text-gray-700">
+                     Password
+                  </label>
                   <input
                      type="password"
                      {...register("password", {
@@ -108,12 +131,19 @@ function Login() {
                </button>
 
                {/* Forgot Password */}
-               <div className="text-right">
-                  <a href="#" className="text-sm text-blue-600 hover:underline">Forgot Password?</a>
+               <div className="text-right mt-2">
+                  {/* Changed <a> to button for preventing default and handling click */}
+                  <button
+                     onClick={handleReset}
+                     className="text-sm text-blue-600 hover:underline"
+                     type="button"
+                  >
+                     Forgot Password?
+                  </button>
                </div>
 
                {/* Divider */}
-               <div className="flex items-center justify-center gap-2 text-gray-400">
+               <div className="flex items-center justify-center gap-2 text-gray-400 my-4">
                   <hr className="w-full border-gray-300" />
                   <span>or</span>
                   <hr className="w-full border-gray-300" />
@@ -121,17 +151,19 @@ function Login() {
 
                {/* Register Link */}
                <p className="text-sm text-center">
-                  Don’t have any account?{' '}
-                  <Link to="/reghiter" className="text-blue-600 hover:underline">
+                  Don’t have any account?{" "}
+                  <Link to="/register" className="text-blue-600 hover:underline">
                      Register
                   </Link>
                </p>
 
+               {/* Google Login */}
                <button
                   type="button"
                   onClick={handleGoogleLogin}
-                  className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg hover:bg-gray-100"
+                  className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg hover:bg-gray-100 mt-4"
                >
+                  {/* Google icon SVG */}
                   <svg
                      className="w-5 h-5"
                      viewBox="0 0 533.5 544.3"
@@ -156,8 +188,6 @@ function Login() {
                   </svg>
                   <span>Continue with Google</span>
                </button>
-
-
             </form>
          </div>
       </div>

@@ -11,7 +11,8 @@ import {
 } from "react-share";
 import Comments from "./Comments";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import UseAuth from "../../Hook/useAuth";
+import UseAuth from "../../Hook/UseAuth";
+import Loading from "../../Pages/LoadingPage/LoadingPage";
 
 function PostDetailsPage() {
    const { id } = useParams();
@@ -62,7 +63,7 @@ function PostDetailsPage() {
       }
    };
 
-   if (isLoading || !post) return <p>Loading...</p>;
+   if (isLoading || !post) return <Loading></Loading>;
 
    const shareUrl = window.location.href;
 

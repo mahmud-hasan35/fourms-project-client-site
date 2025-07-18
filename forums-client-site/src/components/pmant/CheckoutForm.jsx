@@ -72,45 +72,76 @@ function CheckoutForm({ price, user, userData }) {
    };
 
    return (
-      <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
-         <h2 className="text-2xl font-semibold text-center text-purple-700 mb-6">
-            Complete Your Payment
-         </h2>
+ <div
+   className={`max-w-md mx-auto p-6 mt-10 rounded-xl shadow-lg border 
+      ${userData?.badges === "gold"
+         ? "bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-400"
+         : "bg-white border-gray-200"
+      }`}
+>
+   <div className="text-center mb-6">
+      <h2 className={`text-2xl font-bold 
+         ${userData?.badges === "gold" ? "text-yellow-600" : "text-purple-700"}`}>
+         {userData?.badges === "gold"
+            ? "🌟 You're a Gold Member!"
+            : "Complete Your Payment"}
+      </h2>
 
-         <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="border border-gray-300 rounded p-4 bg-gray-50">
-               <CardElement
-                  options={{
-                     style: {
-                        base: {
-                           fontSize: "16px",
-                           color: "#424770",
-                           "::placeholder": { color: "#aab7c4" },
-                        },
-                        invalid: { color: "#9e2146" },
-                     },
-                  }}
-               />
-            </div>
+      {userData?.badges === "gold" && (
+         <p className="text-sm text-yellow-700 mt-1">
+            Enjoy exclusive perks, early access, and premium support!
+         </p>
+      )}
+   </div>
 
-            <button
-               type="submit"
-               disabled={!stripe || loading || userData?.badges === "gold"}
-               className={`w-full py-2 px-4 rounded text-white font-medium transition ${loading || userData?.badges === "gold"
-                     ? "bg-gray-400 cursor-not-allowed"
-                     : "bg-purple-600 hover:bg-purple-700"
-                  }`}
-            >
-               {loading
-                  ? "Processing..."
-                  : userData?.badges === "gold"
-                     ? "Already a Gold Member"
-                     : `Pay $${price}`}
-            </button>
+   {!userData?.badges === "gold" && (
+      <p className="text-center text-gray-600 mb-3">
+         Securely complete your payment and join our premium membership.
+      </p>
+   )}
 
-            {errors && <p className="text-red-500">{errors}</p>}
-         </form>
+   <form onSubmit={handleSubmit} className="space-y-4">
+      <div
+         className={`rounded p-4 transition-all duration-300
+            ${userData?.badges === "gold"
+               ? "border-2 border-yellow-300 bg-yellow-50"
+               : "border border-gray-300 bg-gray-50"
+            }`}
+      >
+         <CardElement
+            options={{
+               style: {
+                  base: {
+                     fontSize: "16px",
+                     color: "#424770",
+                     "::placeholder": { color: "#aab7c4" },
+                  },
+                  invalid: { color: "#9e2146" },
+               },
+            }}
+         />
       </div>
+
+      <button
+         type="submit"
+         disabled={!stripe || loading || userData?.badges === "gold"}
+         className={`w-full py-2 px-4 rounded text-white font-semibold transition-all duration-300
+            ${loading || userData?.badges === "gold"
+               ? "bg-gray-400 cursor-not-allowed"
+               : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+            }`}
+      >
+         {loading
+            ? "Processing..."
+            : userData?.badges === "gold"
+               ? "Already a Gold Member"
+               : `Pay $${price}`}
+      </button>
+
+      {errors && <p className="text-red-500">{errors}</p>}
+   </form>
+</div>
+
    );
 }
 

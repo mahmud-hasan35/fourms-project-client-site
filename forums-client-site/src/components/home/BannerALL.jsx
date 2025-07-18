@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import bannerImage from "../../../src/assets/19197974.jpg"
+import backgroundImage from "../../assets/rm222batch2-mind-03.jpg"
 import { Link } from "react-router";
 
 function BannerALL() {
@@ -10,7 +12,7 @@ function BannerALL() {
    const {
       data: results = [],
       isLoading,
-      isError,
+      
    } = useQuery({
       queryKey: ["searchPosts", searchTag],
       queryFn: async () => {
@@ -24,28 +26,20 @@ function BannerALL() {
    });
 
    return (
-      <section className="bg-gray-100 py-16 px-6 md:px-20">
-         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+      <section   className="relative bg-cover bg-center py-16 px-6 md:px-20"
+   style={{ backgroundImage: `url(${backgroundImage})` }}
+> <div className="absolute inset-0 bg-white/80 md:bg-white/60 backdrop-blur-sm z-0"></div>
+         <div className=" relative z-[1] flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="md:w-1/2 space-y-5 text-center md:text-left">
-               <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
+               <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
                   Join the <span className="text-blue-600">Discussion</span><br />
                   on Our <span className="text-pink-600">Forum</span>
                </h1>
-               <p className="text-gray-700 text-lg">
-                  Ask questions, share knowledge, and connect with others in our growing community.
+               <p className="text-gray-500 text-lg font-semibold">
+                   Ask questions, share knowledge, and connect with others in our growing community.
+  Discover trending topics, join thoughtful discussions, and grow your expertise with like-minded individuals.
                </p>
-               <div className="flex justify-center md:justify-start gap-4 pt-4">
-                 
-                     <button className="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition">
-                        Explore Topics
-                     </button>
-                 
-                 
-                     <button className="border border-blue-600 text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-blue-50 transition">
-                        Start a Thread
-                     </button>
-                 
-               </div>
+
 
                {/* Search Bar */}
                <div className="mt-8 flex max-w-md mx-auto md:mx-0 relative">
@@ -97,9 +91,9 @@ function BannerALL() {
             {/* Right Image */}
             <div className="md:w-1/2 flex justify-center">
                <img
-                  src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                  src={bannerImage}
                   alt="Forum Illustration"
-                  className="w-80 h-auto"
+                  className="w-96 h-auto"
                />
             </div>
          </div>
