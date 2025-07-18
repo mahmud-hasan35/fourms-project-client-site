@@ -29,6 +29,8 @@ function Login() {
    const onSubmit = async (data) => {
       try {
          const result = await signIn(data.email, data.password);
+         console.log(result.user);
+         
          toast.success(`Welcome back, ${result.user.displayName || "User"}!`);
          navigate("/");
       } catch (error) {
@@ -40,7 +42,10 @@ function Login() {
    const handleGoogleLogin = async () => {
       try {
          const result = await googleLogin();
+         
          const user = result.user;
+         console.log(user);
+         
 
          const userInfo = {
             email: user.email,
@@ -76,12 +81,10 @@ function Login() {
    return (
       <div className="container mx-auto px-4 py-12 flex items-center justify-center  relative">
          <div className="w-full max-w-md rounded-2xl p-8 shadow-lg">
-            <div className="flex items-center justify-center py-5 ">
-               <img className="" src="/download.png" alt="dummyLogoColored" />
-            </div>
+
 
             <h3 className="text-[32px] font-bold text-center mb-2">Welcome Back</h3>
-            <p className="text-center text-gray-500 mb-6">Login with Profast</p>
+            <p className="text-center text-gray-500 mb-6">Login with Forum Verse</p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                {/* Email */}

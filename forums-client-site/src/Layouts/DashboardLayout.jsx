@@ -40,9 +40,8 @@ function DashboardLayout() {
 
          {/* Sidebar */}
          <div
-            className={`fixed md:static z-40 md:z-0 top-0 left-0 h-full w-64 bg-gradient-to-b from-green-500 via-teal-600 to-teal-800 text-white p-6 space-y-4 transform ${
-               isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            } md:translate-x-0 transition-transform duration-300 ease-in-out`}
+            className={`fixed md:static z-40 md:z-0 top-0 left-0 h-full w-64 bg-gradient-to-b from-green-500 via-teal-600 to-teal-800 text-white p-6 space-y-4 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+               } md:translate-x-0 transition-transform duration-300 ease-in-out`}
          >
             {/* Close button inside sidebar for mobile */}
             <div className="flex justify-between items-center md:hidden mb-6">
@@ -56,31 +55,30 @@ function DashboardLayout() {
 
             {/* Dashboard Title (for md and up) */}
             {
-               role === 'user' &&  
-            <Link to="/" className="hidden md:block">
-               <h2 className="text-2xl font-bold mb-4 mt-4">User Dashboard</h2>
-            </Link>
+               role === 'user' &&
+               <Link to="/" className="hidden md:block">
+                  <h2 className="text-2xl font-bold mb-4 mt-4">User Dashboard</h2>
+               </Link>
             }
-            {role === 'admin' && 
-            <Link to="/" className="hidden md:block">
-               <h2 className="text-2xl font-bold mb-4 mt-4">Admin Dashboard</h2>
-            </Link>
+            {role === 'admin' &&
+               <Link to="/" className="hidden md:block">
+                  <h2 className="text-2xl font-bold mb-4 mt-4">Admin Dashboard</h2>
+               </Link>
             }
 
             <ul className="space-y-3 text-lg font-medium mt-4 md:mt-10">
-               {/* ✅ Common for All Users */}
-               <li>
-                  <Link
-                     to="/dashboard/my-profile"
-                     className="flex items-center gap-2 hover:text-yellow-300"
-                  >
-                     <FaUserShield /> My Profile
-                  </Link>
-               </li>
 
                {/* ✅ Only for Normal Users */}
                {role === 'user' && (
                   <>
+                     <li>
+                        <Link
+                           to="/dashboard/my-profile"
+                           className="flex items-center gap-2 hover:text-yellow-300"
+                        >
+                           <FaUserShield /> My Profile
+                        </Link>
+                     </li>
                      <li>
                         <Link
                            to="/dashboard/add-post"
