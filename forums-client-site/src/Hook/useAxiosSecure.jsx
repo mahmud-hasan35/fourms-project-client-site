@@ -19,7 +19,8 @@ const useAxiosSecure = () => {
       async (config) => {
         try {
           // ✅ Smart refresh (no "true")
-          const token = await getIdToken(user); // Firebase handles refresh internally
+          const token = await getIdToken(user);
+           // Firebase handles refresh internally
           if (token) {
             config.headers.Authorization = `Bearer ${token}`;
           }

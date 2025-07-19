@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router"; // ✅ correct import
 import { FiMenu, FiX } from "react-icons/fi";
-import {  motion, AnimatePresence } from "framer-motion";
+import { AiFillNotification } from "react-icons/ai";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/logo-template.png"
 import UseAuth from "../../Hook/UseAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -19,30 +20,30 @@ const Navbar = () => {
       .then(() => {
         setSidebarOpen(false);
         setDropdownOpen(false);
-        navigate("/"); 
+        navigate("/");
       })
       .catch((err) => {
         console.error("Logout failed:", err);
       });
   };
 
-const axiosSecure = useAxiosSecure(); 
+  const axiosSecure = useAxiosSecure();
 
-const { data: announcementCount = 0 } = useQuery({
-  queryKey: ["announcementCount"],
-  queryFn: async () => {
-    try {
-      const res = await axiosSecure.get("/announcements/count");
+  const { data: announcementCount = 0 } = useQuery({
+    queryKey: ["announcementCount"],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get("/announcements/count");
 
-      console.log("📢 Response Data:", res.data);
+        console.log("📢 Response Data:", res.data);
 
-      return res.data.count;
-    } catch (err) {
-      console.error("❌ Error fetching announcement count:", err);
-      return 0;
-    }
-  },
-});
+        return res.data.count;
+      } catch (err) {
+        console.error("❌ Error fetching announcement count:", err);
+        return 0;
+      }
+    },
+  });
 
 
   return (
@@ -62,14 +63,14 @@ const { data: announcementCount = 0 } = useQuery({
         <nav className="hidden md:flex gap-8 text-lg font-medium tracking-wide">
           <Link to="/" className="hover:text-yellow-300 transition">Home</Link>
           <Link to="/membership" className="hover:text-yellow-300 transition">Membership</Link>
-                  <button className="relative">
-                     🔔
-                     {announcementCount > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-red-600 rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                           {announcementCount}
-                        </span>
-                     )}
-                  </button>
+          <button className="relative">
+            <AiFillNotification className="text-2xl text-white hover:text-fuchsia-500 transition-colors" />
+            {announcementCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 rounded-full text-white text-xs w-5 h-5 flex items-center justify-center">
+                {announcementCount}
+              </span>
+            )}
+          </button>
         </nav>
 
         {/* Profile or Join Us */}
@@ -138,12 +139,12 @@ const { data: announcementCount = 0 } = useQuery({
               <nav className="flex flex-col p-6 gap-5 text-lg font-medium bg-white">
                 <Link to="/" onClick={() => setSidebarOpen(false)} className="hover:text-purple-600 transition">Home</Link>
                 <Link to="/membership" onClick={() => setSidebarOpen(false)} className="hover:text-purple-600 transition">Membership</Link>
-                <button className="text-left relative hover:text-purple-600 transition">🔔 announcementCount
-                                       {announcementCount > 0 && (
-                        <span className="absolute -top-2 left-2 bg-red-600 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">
-                           {announcementCount}
-                        </span>
-                     )}
+                <button className="text-left relative hover:text-purple-600 transition"><AiFillNotification/> announcementCount
+                  {announcementCount > 0 && (
+                    <span className="absolute -top-2 left-2 bg-red-600 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">
+                      {announcementCount}
+                    </span>
+                  )}
                 </button>
                 {!user ? (
                   <Link to="/login" onClick={() => setSidebarOpen(false)} className="mt-4 bg-purple-600 text-white text-center px-4 py-2 rounded hover:bg-purple-700 transition">

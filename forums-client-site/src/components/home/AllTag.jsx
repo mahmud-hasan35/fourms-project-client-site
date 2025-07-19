@@ -18,9 +18,9 @@ function AllTag({ onTagClick }) {
    }
 
    if (isError) {
-      return <div className="text-red-500 text-center">ট্যাগ লোড করতে সমস্যা হয়েছে!</div>;
+      return <div className="text-red-500 text-center">Loading tag problem </div>;
    }
-
+  
    return (
       <div className="max-w-4xl mx-auto  p-4 ">
          <h3 className="font-bold mb-2 text-center text-4xl">All Tags</h3>
