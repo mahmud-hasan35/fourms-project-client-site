@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";  
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
@@ -30,7 +30,7 @@ function Login() {
       try {
          const result = await signIn(data.email, data.password);
          console.log(result.user);
-         
+
          toast.success(`Welcome back, ${result.user.displayName || "User"}!`);
          navigate("/");
       } catch (error) {
@@ -42,10 +42,10 @@ function Login() {
    const handleGoogleLogin = async () => {
       try {
          const result = await googleLogin();
-         
+
          const user = result.user;
-         console.log(user);
-         
+
+
 
          const userInfo = {
             email: user.email,

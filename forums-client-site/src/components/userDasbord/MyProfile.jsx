@@ -3,10 +3,9 @@ import {
    FiUser,
    FiMail,
    FiCalendar,
-   FiEdit,
-   FiFileText,
    FiAward,
-   FiEye,
+   FiFileText,
+   FiBookOpen,
 } from "react-icons/fi";
 import { FaRegCommentDots } from "react-icons/fa";
 import { BsPostcard } from "react-icons/bs";
@@ -24,24 +23,23 @@ function MyProfile() {
    useEffect(() => {
       if (user?.email) {
          setIsLoading(true);
-
          Promise.all([
-            axiosSecure.get(`/users/${user?.email}`),
+            axiosSecure.get(`/users/${user.email}`),
             axiosSecure.get(`/posts/user/${user.email}`),
          ])
-            .then(([userRes, postsRes]) => {
-               setUserData(userRes.data);
-               const sorted = postsRes.data.sort(
-                  (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-               );
-               setRecentPosts(sorted); // full posts list
-            })
-            .catch(console.error)
-            .finally(() => setIsLoading(false));
-      }
-   }, [user, axiosSecure]);
+             .then(([userRes, postsRes]) => {
+            setUserData(userRes.data);
+            const posts = Array.isArray(postsRes.data.posts) ? postsRes.data.posts : [];
+            const sorted = posts.sort(
+               (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
+            setRecentPosts(sorted);
+         })
+         .catch((error) => console.error("Error fetching data:", error))
+         .finally(() => setIsLoading(false));
+   }
+}, [user, axiosSecure]);
 
-   // Calculate total comments across all posts
    const totalComments = recentPosts.reduce(
       (acc, post) => acc + (post.comments?.length || 0),
       0
@@ -68,7 +66,7 @@ function MyProfile() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-               {/* Profile Card */}
+               {/* Profile Sidebar */}
                <div className="lg:col-span-1">
                   <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-center">
@@ -107,44 +105,38 @@ function MyProfile() {
                         </p>
                      </div>
 
-                     <div className="p-3">
-                        {/* Stats */}
-                        <div className="mt-8 space-y-4">
-                           <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-                              <FiUser className="mr-2 text-purple-600" />
-                              User Stats
-                           </h3>
-
-                           <div className="space-y-3">
-                              <ProfileStat
-                                 icon={<BsPostcard className="text-purple-600" />}
-                                 label="Total Posts"
-                                 value={recentPosts.length || 0}
-                                 bg="bg-purple-50"
-                              />
-                              <ProfileStat
-                                 icon={<FaRegCommentDots className="text-indigo-600" />}
-                                 label="Comments"
-                                 value={totalComments}
-                                 bg="bg-indigo-50"
-                              />
-                              <ProfileStat
-                                 icon={<FiCalendar className="text-purple-600" />}
-                                 label="Member Since"
-                                 value={
-                                    userData?.createdAt
-                                       ? new Date(userData.createdAt).toLocaleDateString()
-                                       : "N/A"
-                                 }
-                                 bg="bg-gradient-to-r from-purple-50 to-indigo-50"
-                              />
-                           </div>
-                        </div>
+                     <div className="p-3 mt-4 space-y-4">
+                        <h3 className="text-lg font-semibold text-gray-800 flex items-center">
+                           <FiUser className="mr-2 text-purple-600" />
+                           User Stats
+                        </h3>
+                        <ProfileStat
+                           icon={<BsPostcard className="text-purple-600" />}
+                           label="Total Posts"
+                           value={recentPosts.length || 0}
+                           bg="bg-purple-50"
+                        />
+                        <ProfileStat
+                           icon={<FaRegCommentDots className="text-indigo-600" />}
+                           label="Comments"
+                           value={totalComments}
+                           bg="bg-indigo-50"
+                        />
+                        <ProfileStat
+                           icon={<FiCalendar className="text-purple-600" />}
+                           label="Member Since"
+                           value={
+                              userData?.createdAt
+                                 ? new Date(userData.createdAt).toLocaleDateString()
+                                 : "N/A"
+                           }
+                           bg="bg-gradient-to-r from-purple-50 to-indigo-50"
+                        />
                      </div>
                   </div>
                </div>
 
-               {/* Recent Posts */}
+               {/* Recent Posts Section */}
                <div className="lg:col-span-3">
                   <div className="bg-white rounded-2xl shadow-xl overflow-hidden h-full">
                      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-4">
@@ -204,21 +196,15 @@ const PostCard = ({ post }) => (
             <div className="flex items-center text-gray-500 mt-2">
                <FiCalendar className="mr-2 text-purple-500" />
                <span className="text-sm">
-                  {new Date(post.createdAt).toLocaleDateString("en-US", {
-                     year: "numeric",
-                     month: "short",
-                     day: "numeric",
-                     hour: "2-digit",
-                     minute: "2-digit",
-                  })}
+                  {new Date(post.createdAt).toLocaleString()}
                </span>
             </div>
          </div>
 <button
-  className="p-3 bg-purple-100 text-purple-700 rounded-full hover:bg-gradient-to-r hover:from-purple-500 hover:to-indigo-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
+  className="p-3 bg-green-100 text-green-700 rounded-full hover:bg-gradient-to-r hover:from-green-500 hover:to-teal-600 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
   aria-label="View Post"
 >
-  <FiEye className="text-xl" />
+  <FiBookOpen className="text-xl" />
 </button>
       </div>
 

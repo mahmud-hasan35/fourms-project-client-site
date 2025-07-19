@@ -22,7 +22,6 @@ function MyPost() {
       queryFn: async () => {
          const res = await axiosSecure.get(`/user/posts?email=${user?.email}&page=${page}&limit=${limit}`);
 
-         console.log(res.data);
          return res.data;
       },
       enabled: !!user?.email,

@@ -32,7 +32,7 @@ const onSubmit = async (data) => {
       // Step 1: Check image uploaded
       if (!selectedImageURL) {
          toast.error("Please upload a profile image before submitting.");
-         console.log("❌ Image not uploaded yet.");
+        
          return;
       }
 
@@ -47,8 +47,6 @@ const onSubmit = async (data) => {
       };
 
       await updateUser(userProfile);
-      console.log("✅ User profile updated with:", userProfile);
-
       // Step 4: Send user info to backend
       const userInfo = {
          email,

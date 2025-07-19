@@ -6,6 +6,7 @@ import { FiAlertTriangle, FiChevronDown, FiMessageSquare } from "react-icons/fi"
 import { FaRegFlag } from "react-icons/fa";
 import CommentModal from "./CommentModal";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import Loading from "../../Pages/LoadingPage/LoadingPage";
 
 const feedbackOptions = [
    "Unrelated comment",
@@ -40,7 +41,7 @@ const Coomentsuserdas = () => {
    });
 
    if (isLoading) {
-      return <p>loading...</p>
+      return <Loading/>
    }
 
    const comments = data?.comments || [];

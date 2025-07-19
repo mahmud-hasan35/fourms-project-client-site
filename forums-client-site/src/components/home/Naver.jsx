@@ -4,9 +4,9 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { AiFillNotification } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/logo-template.png"
-import UseAuth from "../../Hook/UseAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import UseAuth from "../../Hook/useAuth";
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,7 +35,6 @@ const Navbar = () => {
       try {
         const res = await axiosSecure.get("/announcements/count");
 
-        console.log("📢 Response Data:", res.data);
 
         return res.data.count;
       } catch (err) {
@@ -139,7 +138,7 @@ const Navbar = () => {
               <nav className="flex flex-col p-6 gap-5 text-lg font-medium bg-white">
                 <Link to="/" onClick={() => setSidebarOpen(false)} className="hover:text-purple-600 transition">Home</Link>
                 <Link to="/membership" onClick={() => setSidebarOpen(false)} className="hover:text-purple-600 transition">Membership</Link>
-                <button className="text-left relative hover:text-purple-600 transition"><AiFillNotification/> announcementCount
+                <button className="text-left relative hover:text-purple-600 transition"><AiFillNotification /> announcementCount
                   {announcementCount > 0 && (
                     <span className="absolute -top-2 left-2 bg-red-600 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">
                       {announcementCount}
