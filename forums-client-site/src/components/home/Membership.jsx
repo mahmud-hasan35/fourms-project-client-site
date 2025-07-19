@@ -26,8 +26,7 @@ function Membership() {
    
          }
    }, [user, axiosSecure]);
-   
-   console.log(userData);
+
    
 
    if (!user) {

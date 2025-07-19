@@ -1,12 +1,12 @@
-// import axios from "axios";
+import axios from "axios";
 
 
-// const axiosInstance = axios.create({
-//    baseURL: `http://localhost:5000`
-// })
+const axiosInstance = axios.create({
+   baseURL: `https://forums-server-site.vercel.app`
+})
 
-// const useAxios = () => {
-//    return axiosInstance;
-// };
+const useAxios = () => {
+   return axiosInstance;
+};
 
-// export default useAxios;
+export default useAxios;
