@@ -78,8 +78,6 @@ const onSubmit = async (data) => {
 
 
 
-
-
    const handleImageUpload = async (e) => {
       const image = e.target.files[0];
       const fromData = new FormData();

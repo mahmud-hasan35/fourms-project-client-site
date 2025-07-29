@@ -15,6 +15,8 @@ function HomeALL() {
          <AllTag onTagClick={setSelectedTag} />
          <Announcement />
          <PostList selectedTag={selectedTag}></PostList>
+          
+          
          
       </>
    );

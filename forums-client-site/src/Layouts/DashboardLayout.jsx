@@ -48,7 +48,7 @@ function DashboardLayout() {
          >
             {/* Close button inside sidebar for mobile */}
             <div className="flex justify-between items-center md:hidden mb-6">
-               <Link to={"/dashboard"}>
+               <Link to={"/"}>
                   <h2 className="text-xl font-bold">Dashboard</h2>
                </Link>
                <button onClick={toggleSidebar} className="text-2xl text-white">
