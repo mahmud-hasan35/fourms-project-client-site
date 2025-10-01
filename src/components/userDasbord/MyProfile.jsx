@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import { FaRegCommentDots } from "react-icons/fa";
 import { BsPostcard } from "react-icons/bs";
-import useAuth from "../../Hook//useAuth";
+import useAuth from "../../Hook/UseAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 function MyProfile() {
