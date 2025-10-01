@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import useAxiosSecure from '../Hook/useAxiosSecure';
+import useAxiosSecure from '../../Hook/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 function ManageUsers() {

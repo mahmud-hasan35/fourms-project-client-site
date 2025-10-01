@@ -3,8 +3,8 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
-import useAuth from "../Hook/useAuth";
-import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAuth from "../../Hook//useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 import Loading from "../../Pages/LoadingPage/LoadingPage";
 import CheckoutForm from "../pmant/CheckoutForm";
 const stripePromise = loadStripe('pk_test_51ReEO2BTjcPYjzOOdKoENbyIxu6Z7hWAbs7KExvVdsCWifZ9QWcBkHvMW14WgLLhzrdVKcow8BeK603DRgTgs6He00of1jU5gD');

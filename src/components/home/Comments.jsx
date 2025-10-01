@@ -3,8 +3,8 @@
 
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxiosSecure from "../Hook/useAxiosSecure";
-import useAuth from "../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAuth from "../../Hook//useAuth";
 
 function Comments({ postTitle, postId }) {
    const axiosSecure = useAxiosSecure();

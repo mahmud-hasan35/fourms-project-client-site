@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import useAxiosSecure from "../Hook/useAxiosSecure";
-import useAuth from "../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAuth from "../../Hook//useAuth";
 
 function Login() {
    const { googleLogin, signIn, resetPassword } = useAuth();

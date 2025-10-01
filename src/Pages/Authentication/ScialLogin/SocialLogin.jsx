@@ -2,7 +2,7 @@ import React from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../../Hook/useAuth'
 import { useLocation, useNavigate } from 'react-router';
-import useAxiosSecure from '../../Hook/useAxiosSecure';
+import useAxiosSecure from '../../../Hook/useAxiosSecure';
 import toast from 'react-hot-toast';
 
 export default function SocialLogin() {

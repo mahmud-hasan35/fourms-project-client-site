@@ -9,8 +9,8 @@ import {
    ResponsiveContainer,
    Legend,
 } from "recharts";
-import useAuth from "../Hook/useAuth";
-import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAuth from "../../Hook//useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const COLORS = ["#3B82F6", "#10B981", "#F59E0B"];

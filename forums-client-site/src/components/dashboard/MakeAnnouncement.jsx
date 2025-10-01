@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import useAxiosSecure from '../Hook/useAxiosSecure';
-import useAuth from '../Hook/useAuth';
+import useAxiosSecure from '../../Hook/useAxiosSecure';
+import useAuth from '../../Hook//useAuth';
 
 function MakeAnnouncement() {
    const axiosSecure = useAxiosSecure();

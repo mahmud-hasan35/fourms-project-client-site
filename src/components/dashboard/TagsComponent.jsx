@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 function TagsComponent() {
    const axiosSecure = useAxiosSecure();

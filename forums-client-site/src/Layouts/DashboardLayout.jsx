@@ -8,7 +8,7 @@ import {
    FaBars,
    FaTimes,
 } from 'react-icons/fa';
-import useUserRole from '../Hook/useUserRole';
+import useUserRole from '../../Hook//useUserRole';
 
 function DashboardLayout() {
    const { role, roleLoading } = useUserRole();

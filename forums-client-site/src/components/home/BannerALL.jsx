@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 import bannerImage from "../../../src/assets/19197974.jpg";
 import backgroundImage from "../../assets/rm222batch2-mind-03.jpg";
 

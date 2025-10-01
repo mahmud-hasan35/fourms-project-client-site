@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 import bannerImage from "../../../src/assets/pexels-kymco-vn-2038166460-34022738.jpg";
 
 function BannerALL() {

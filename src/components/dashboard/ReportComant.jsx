@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const ReportComant = () => {

@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router';
-import useAuth from '../Hook/useAuth';
-import useUserRole from '../Hook/useUserRole';
+import useAuth from '../../Hook//useAuth';
+import useUserRole from '../../Hook//useUserRole';
 import Loading from '../Pages/LoadingPage/LoadingPage';
 
 function AdminRoute({ children }) {

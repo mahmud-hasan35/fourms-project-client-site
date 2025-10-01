@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Toaster, toast } from "react-hot-toast";
 import { FaComment, FaThumbsUp, FaTags, FaUser } from "react-icons/fa";
-import useAxiosSecure from "../Hook/useAxiosSecure";
-import useAuth from "../Hook/useAuth";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAuth from "../../Hook//useAuth";
 
 function PostCard({ post }) {
   const [commentCount, setCommentCount] = useState(0);
