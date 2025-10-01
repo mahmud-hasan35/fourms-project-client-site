@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 
 function CheckoutForm({ price, user, userData }) {
    const axiosSecure = useAxiosSecure();

@@ -1,5 +1,5 @@
 import React from "react";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Pages/LoadingPage/LoadingPage";
 

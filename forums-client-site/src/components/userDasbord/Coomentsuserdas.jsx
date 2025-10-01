@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FiAlertTriangle, FiChevronDown, FiMessageSquare } from "react-icons/fi";
 import { FaRegFlag } from "react-icons/fa";
 import CommentModal from "./CommentModal";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 import Loading from "../../Pages/LoadingPage/LoadingPage";
 
 const feedbackOptions = [

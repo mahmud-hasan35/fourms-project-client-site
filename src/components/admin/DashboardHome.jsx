@@ -1,4 +1,4 @@
-import useUserRole from "../../Hook/useUserRole";
+import useUserRole from "../Hook/useUserRole";
 import Loading from "../../Pages/LoadingPage/LoadingPage";
 import AdminProfile from "../dashboard/AdminProfile";
 import MyProfile from "../userDasbord/MyProfile";

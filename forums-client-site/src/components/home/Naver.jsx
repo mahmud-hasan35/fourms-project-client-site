@@ -5,8 +5,8 @@ import { AiFillNotification } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/logo-template.png"
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
-import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAuth from "../Hook/useAuth";
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

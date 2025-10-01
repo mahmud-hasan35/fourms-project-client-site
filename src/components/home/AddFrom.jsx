@@ -4,8 +4,8 @@ import Select from "react-select";
 import toast from "react-hot-toast";
 import { Link } from "react-router"; // react-router-dom ঠিক আছে
 import { useQueryClient } from "@tanstack/react-query";
-import useAuth from "../../Hook/useAuth";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAuth from "../Hook/useAuth";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 
 function AddFrom() {
   const { user } = useAuth();

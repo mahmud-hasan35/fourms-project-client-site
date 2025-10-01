@@ -10,8 +10,8 @@ import {
    WhatsappIcon,
 } from "react-share";
 import Comments from "./Comments";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
-import useAuth from "../../Hook/useAuth";
+import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAuth from "../Hook/useAuth";
 import Loading from "../../Pages/LoadingPage/LoadingPage";
 
 function PostDetailsPage() {

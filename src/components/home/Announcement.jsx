@@ -1,7 +1,7 @@
 import React from "react";
 import { FaBullhorn, FaCalendarAlt, FaUser } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 import { motion } from "framer-motion";
 
 function Announcement() {
