@@ -8,7 +8,7 @@
 // } from '@stripe/react-stripe-js';
 // import { useNavigate } from 'react-router';
 // import axios from 'axios';
-// import useAuth from '../../Hook//useAuth';
+// import useAuth from '../../Hook/UseAuth';
 
 // // Stripe public key
 // const stripePromise = loadStripe('pk_test_51ReEO2BTjcPYjzOOdKoENbyIxu6Z7hWAbs7KExvVdsCWifZ9QWcBkHvMW14WgLLhzrdVKcow8BeK603DRgTgs6He00of1jU5gD');

@@ -9,7 +9,7 @@ import {
    ResponsiveContainer,
    Legend,
 } from "recharts";
-import useAuth from "../../Hook//useAuth";
+import useAuth from "../../Hook/UseAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 

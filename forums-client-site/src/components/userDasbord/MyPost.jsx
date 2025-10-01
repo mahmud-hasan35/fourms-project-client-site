@@ -4,7 +4,7 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { FiTrash2, FiChevronLeft, FiChevronRight, FiMessageSquare, FiAlertCircle } from 'react-icons/fi';
 import { FaRegSadTear } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import useAuth from '../../Hook//useAuth';
+import useAuth from '../../Hook/UseAuth';
 import useAxiosSecure from '../../Hook/useAxiosSecure';
 import Loading from '../../Pages/LoadingPage/LoadingPage';
 

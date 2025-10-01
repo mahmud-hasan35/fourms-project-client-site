@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Toaster, toast } from "react-hot-toast";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import useAuth from "../../Hook//useAuth";
+import useAuth from "../../Hook/UseAuth";
 
 function PostCard({ post }) {
    const [commentCount, setCommentCount] = useState(0);

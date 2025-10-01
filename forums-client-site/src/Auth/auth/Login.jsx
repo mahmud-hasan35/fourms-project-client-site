@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import useAuth from "../../Hook//useAuth";
+import useAuth from "../../Hook/UseAuth";
 
 function Login() {
    const { googleLogin, signIn, resetPassword } = useAuth();

@@ -3,7 +3,7 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
-import useAuth from "../../Hook//useAuth";
+import useAuth from "../../Hook/UseAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import Loading from "../../Pages/LoadingPage/LoadingPage";
 import CheckoutForm from "../pmant/CheckoutForm";

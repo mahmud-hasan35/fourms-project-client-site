@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import axios from "axios";
-import useAuth from "../../Hook//useAuth";
+import useAuth from "../../Hook/UseAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 
