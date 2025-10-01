@@ -6,12 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/logo-template.png"
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import UseAuth from "../../Hook/useAuth";
+import useAuth from "../../Hook/useAuth";
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user, logOut } = UseAuth();
+  const { user, logOut } = useAuth();
   const navigate = useNavigate();
 
   // ✅ Logout handler

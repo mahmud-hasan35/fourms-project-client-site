@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import UseAuth from "../../Hook/UseAuth";
+import useAuth from "../../Hook/useAuth";
 
 function Login() {
-   const { googleLogin, signIn, resetPassword } = UseAuth();
+   const { googleLogin, signIn, resetPassword } = useAuth();
    const [email, setEmail] = useState("");
 
    const navigate = useNavigate();

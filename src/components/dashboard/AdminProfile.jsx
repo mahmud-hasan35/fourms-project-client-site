@@ -9,14 +9,14 @@ import {
    ResponsiveContainer,
    Legend,
 } from "recharts";
-import UseAuth from "../../Hook/useAuth";
+import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
 const COLORS = ["#3B82F6", "#10B981", "#F59E0B"];
 
 function AdminProfile() {
-   const { user } = UseAuth();
+   const { user } = useAuth();
    const axiosSecure = useAxiosSecure();
 
    const { data: stats = {} } = useQuery({

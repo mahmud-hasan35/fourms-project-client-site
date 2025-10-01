@@ -8,13 +8,13 @@
 // } from '@stripe/react-stripe-js';
 // import { useNavigate } from 'react-router';
 // import axios from 'axios';
-// import UseAuth from '../../Hook/useAuth';
+// import useAuth from '../../Hook/useAuth';
 
 // // Stripe public key
 // const stripePromise = loadStripe('pk_test_51ReEO2BTjcPYjzOOdKoENbyIxu6Z7hWAbs7KExvVdsCWifZ9QWcBkHvMW14WgLLhzrdVKcow8BeK603DRgTgs6He00of1jU5gD');
 
 // const CheckoutForm = () => {
-//   const { user,updateUserProfile } = UseAuth();
+//   const { user,updateUserProfile } = useAuth();
 //   const stripe = useStripe();
 //   const elements = useElements();
 //   const navigate = useNavigate();

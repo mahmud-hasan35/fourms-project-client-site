@@ -6,12 +6,12 @@ import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import axios from "axios";
-import UseAuth from "../../Hook/useAuth";
+import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 
 function Regsiter() {
-   const { createUser,  updateUser } = UseAuth();
+   const { createUser,  updateUser } = useAuth();
    const [selectedImageURL, setSelectedImageURL] = useState(null);
    const axiosInstance = useAxiosSecure();
    console.log(axiosInstance);

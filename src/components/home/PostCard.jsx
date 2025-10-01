@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
 import { Toaster, toast } from "react-hot-toast";
 import { FaComment, FaThumbsUp, FaTags, FaUser } from "react-icons/fa";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import UseAuth from "../../Hook/UseAuth";
+import useAuth from "../../Hook/useAuth";
 
 function PostCard({ post }) {
   const [commentCount, setCommentCount] = useState(0);
   const axiosSecure = useAxiosSecure();
-  const { user } = UseAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {

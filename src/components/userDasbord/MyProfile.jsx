@@ -9,11 +9,11 @@ import {
 } from "react-icons/fi";
 import { FaRegCommentDots } from "react-icons/fa";
 import { BsPostcard } from "react-icons/bs";
-import UseAuth from "../../Hook/useAuth";
+import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 function MyProfile() {
-   const { user } = UseAuth();
+   const { user } = useAuth();
    const axiosSecure = useAxiosSecure();
 
    const [userData, setUserData] = useState(null);

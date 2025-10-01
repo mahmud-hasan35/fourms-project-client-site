@@ -1,13 +1,13 @@
 import React from 'react'
 import { FcGoogle } from 'react-icons/fc'
-import UseAuth from '../../../Hook/UseAuth'
+import useAuth from '../../../Hook/useAuth'
 import { useLocation, useNavigate } from 'react-router';
 import useAxiosSecure from '../../../Hook/useAxiosSecure';
 import toast from 'react-hot-toast';
 
 export default function SocialLogin() {
 
-    const { googleLogin } = UseAuth();
+    const { googleLogin } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/'

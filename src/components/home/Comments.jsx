@@ -4,11 +4,11 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import UseAuth from "../../Hook/useAuth";
+import useAuth from "../../Hook/useAuth";
 
 function Comments({ postTitle, postId }) {
    const axiosSecure = useAxiosSecure();
-   const { user } = UseAuth();
+   const { user } = useAuth();
    const [commentText, setCommentText] = useState("");
    const queryClient = useQueryClient();
 

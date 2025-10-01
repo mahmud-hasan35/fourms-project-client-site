@@ -11,13 +11,13 @@ import {
 } from "react-share";
 import Comments from "./Comments";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import UseAuth from "../../Hook/UseAuth";
+import useAuth from "../../Hook/useAuth";
 import Loading from "../../Pages/LoadingPage/LoadingPage";
 
 function PostDetailsPage() {
    const { id } = useParams();
    const axiosSecure = useAxiosSecure();
-   const { user } = UseAuth();
+   const { user } = useAuth();
    const [userVote, setUserVote] = useState("");
    const queryClient = useQueryClient();
 
