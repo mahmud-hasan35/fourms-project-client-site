@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import useAuth from './useAuth';
+import useAuth from '../Hook/UseAuth';
 import axios from 'axios';
 import { getIdToken } from 'firebase/auth';
 
