@@ -30,39 +30,46 @@ function PostCard({ post }) {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 p-6 mb-6 border border-gray-200 overflow-hidden group">
+    <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition p-5">
       <Toaster position="top-center" reverseOrder={false} />
 
-      {/* Post Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+      {/* Header */}
+      <div className="flex items-start gap-4">
+        {/* Author Image */}
         <img
           src={post.authorImage}
           alt={post.author || "Author"}
-          className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md"
+          className="w-12 h-12 rounded-full object-cover border"
         />
+
         <div className="flex-1">
+          {/* Post Title */}
           <button
             onClick={handleClick}
-            className="text-left text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 hover:underline transition-all duration-200"
+            className="text-lg font-semibold cursor-pointer text-gray-800 hover:text-blue-600 transition"
           >
             {post.title}
           </button>
-          <p className="text-gray-500 text-sm mt-1 flex items-center gap-1">
-            <FaUser className="text-gray-400" /> {post.author} •{" "}
-            {new Date(post.createdAt).toLocaleString()}
+
+          {/* Author Info */}
+          <p className="text-sm text-gray-500 flex items-center gap-2 mt-1">
+            <FaUser className="text-gray-400" />
+            {post.author} • {new Date(post.createdAt).toLocaleDateString()}
           </p>
-          <div className="flex flex-wrap items-center gap-2 mt-2">
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mt-2">
             {post.tags.length ? (
               post.tags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="flex items-center gap-1 bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium hover:bg-blue-100 transition"
+                  className="flex items-center gap-1 bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-medium hover:bg-gray-200 transition"
                 >
-                  <FaTags className="text-xs" /> {tag}
+                  <FaTags className="text-gray-400 text-xs" /> {tag}
                 </span>
               ))
             ) : (
-              <span className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
+              <span className="bg-gray-100 text-gray-500 px-2 py-1 rounded-md text-xs">
                 No Tags
               </span>
             )}
@@ -70,18 +77,15 @@ function PostCard({ post }) {
         </div>
       </div>
 
-      {/* Post Stats */}
-      <div className="flex justify-between items-center mt-6 text-gray-700 text-sm border-t pt-4">
+      {/* Stats */}
+      <div className="flex justify-between items-center mt-4 pt-3 border-t border-gray-100 text-sm text-gray-600">
         <span className="flex items-center gap-2">
-          <FaComment className="text-gray-500" /> {commentCount} Comments
+          <FaComment className="text-gray-400" /> {commentCount} Comments
         </span>
         <span className="flex items-center gap-2">
-          <FaThumbsUp className="text-gray-500" /> {voteCount} Votes
+          <FaThumbsUp className="text-gray-400" /> {voteCount} Votes
         </span>
       </div>
-
-      {/* Subtle Hover Accent */}
-      <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-purple-300 via-pink-300 to-yellow-300 rounded-full opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity duration-300"></div>
     </div>
   );
 }

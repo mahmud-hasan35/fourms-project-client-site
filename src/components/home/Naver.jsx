@@ -47,7 +47,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r  via-blue-700 to-indigo-900 shadow-md backdrop-blur-md text-white">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6  flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <img

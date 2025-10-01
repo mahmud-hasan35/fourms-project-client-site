@@ -27,20 +27,32 @@ function AllTag({ onTagClick }) {
   }
 
   return (
-    <section className="max-w-5xl mx-auto p-6">
-      <h3 className="font-extrabold mb-6 text-center text-3xl md:text-4xl text-gray-800">
-        Explore Tags
-      </h3>
+    <section className="max-w-6xl mx-auto px-4 py-10">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
+          Explore <span className="text-pink-600">Tags</span>
+        </h3>
+        <p className="text-gray-500 mt-2 text-base md:text-lg">
+          Discover categories and filter content that matters to you
+        </p>
+      </div>
 
-      <div className="flex flex-wrap gap-3 justify-center items-center">
+      {/* Tag Buttons */}
+      <div className="flex flex-wrap justify-center gap-4">
         {tags?.map((tag) => (
           <button
             key={tag}
             aria-label={`Filter by ${tag}`}
-            className="bg-pink-600 text-white px-5 py-2 rounded-full font-medium shadow-sm hover:bg-pink-700 focus:ring-2 focus:ring-pink-400 focus:outline-none transition duration-200"
             onClick={() => onTagClick(tag)}
+            className="px-5 py-2.5 rounded-full text-sm md:text-base font-medium 
+              bg-gradient-to-r from-pink-50 to-pink-100 text-pink-700 
+              border border-pink-200 shadow-sm
+              hover:from-pink-100 hover:to-pink-200 hover:text-pink-800 
+              hover:shadow-md active:scale-95
+              transition-all duration-200 ease-in-out"
           >
-            {tag}
+            #{tag}
           </button>
         ))}
       </div>
@@ -49,4 +61,3 @@ function AllTag({ onTagClick }) {
 }
 
 export default AllTag;
-

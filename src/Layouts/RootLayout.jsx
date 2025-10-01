@@ -6,9 +6,12 @@ import Navbar from '../components/home/Naver'
 export default function RootLayout() {
   return (
     <>
+    <div className='bg-gray-50'>
     <Navbar></Navbar>
     <Outlet></Outlet>
     <Footer></Footer>
+
+    </div>
     </>
   )
 }

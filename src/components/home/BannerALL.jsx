@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import bannerImage from "../../../src/assets/19197974.jpg";
-import backgroundImage from "../../assets/rm222batch2-mind-03.jpg";
+import bannerImage from "../../../src/assets/pexels-kymco-vn-2038166460-34022738.jpg";
 
 function BannerALL() {
   const [searchTag, setSearchTag] = useState("");
@@ -24,10 +23,10 @@ function BannerALL() {
   return (
     <section
       className="relative bg-cover bg-center py-16 px-6 md:px-20"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent backdrop-blur-sm z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-r   to-transparent backdrop-blur-sm z-0"></div>
 
       <div className="relative z-[1] flex flex-col md:flex-row items-center justify-between gap-10 max-w-7xl mx-auto">
         {/* Left Content */}
